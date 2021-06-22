@@ -37,12 +37,6 @@ describe("Fund", function () {
         const actual = await fund.path();
         assert.equal(actual, path);
     });
-
-    it("should have set the owner", async () => {
-        const actual = await fund.owner();
-        const [addr1] = await ethers.provider.listAccounts();
-        assert.equal(actual, addr1); 
-    });
     
     it("should have set the investment", async () => {
         const actual = await fund.investment();
