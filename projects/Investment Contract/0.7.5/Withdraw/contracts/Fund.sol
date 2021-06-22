@@ -11,12 +11,10 @@ contract Fund {
 
   mapping (address => uint) share;
 
-  address owner;
   address investment;
   bytes path;
 
   constructor(bytes memory _path, address _investment) {
-    owner = msg.sender;
     path = _path;
     investment = _investment;
 

@@ -9,12 +9,10 @@ contract Fund {
   IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
   ISwapRouter router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
-  address owner;
   address investment;
   bytes path;
 
   constructor(bytes memory _path, address _investment) {
-    owner = msg.sender;
     path = _path;
     investment = _investment;
 
