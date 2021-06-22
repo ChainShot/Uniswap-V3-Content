@@ -1,0 +1,19 @@
+{
+  "executablePath": "contracts/Fund.sol",
+  "name": "Fund.sol",
+  "testFixture": false,
+  "stageContainerId": "60d1f294f687cdf5ca92e7e5",
+  "codeStageIds": [
+    "60d1f2f5f687cdf5ca92e7e6",
+    "60d1f5dff687cdf5ca92e7f1",
+    "60d1f5e9f687cdf5ca92e7f3"
+  ],
+  "id": "60d1f2f5f687cdf5ca92e7e8",
+  "initialCode": "$$LOOKUP",
+  "mode": "sol",
+  "visible": true,
+  "executable": true,
+  "hasProgress": true,
+  "fileLocation": null,
+  "readOnly": null
+}
