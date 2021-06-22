@@ -80,6 +80,17 @@ describe("Fund", function () {
                     assert(share.eq(initialDepositBalance));
                 });
 
+                it("should not withdraw more funds", async () => {
+                    try {
+                        await fund.withdraw();
+                    }
+                    catch(_ex) {
+
+                    }
+                    const share = await uni.balanceOf(addr1);
+                    assert(share.eq(initialDepositBalance));
+                });
+
                 describe("after all withdrawals", () => {
                     before(async () => {
                         for (let i = 1; i < 5; i++) {
