@@ -6,34 +6,34 @@ import "./IERC20.sol";
 import "./ISwapRouter.sol";
 
 contract Fund {
-  IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
-  ISwapRouter router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+    IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
+    ISwapRouter router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
-  address investment;
-  bytes path;
+    address investment;
+    bytes path;
 
-  constructor(bytes memory _path, address _investment) {
-    path = _path;
-    investment = _investment;
+    constructor(bytes memory _path, address _investment) {
+        path = _path;
+        investment = _investment;
 
-    IERC20(dai).approve(address(router), uint(-1));
-  }
+        IERC20(dai).approve(address(router), uint(-1));
+    }
 
-  function deposit(uint _amount) external {
-    require(dai.transferFrom(msg.sender, address(this), _amount));
+    function deposit(uint _amount) external {
+        require(dai.transferFrom(msg.sender, address(this), _amount));
 
-    ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
-      path,
-      address(this),
-      block.timestamp,
-      _amount,
-      0
-    );
+        ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
+            path,
+            address(this),
+            block.timestamp,
+            _amount,
+            0
+        );
 
-    router.exactInput(params);
-  }
+        router.exactInput(params);
+    }
 
-  function withdraw() external {
-    
-  }
+    function withdraw() external {
+
+    }
 }
