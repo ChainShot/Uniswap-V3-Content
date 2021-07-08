@@ -8,23 +8,23 @@ const UNI_ADDR = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984";
 const FEE_SIZE = 3;
 function encodePath(path, fees) {
     if (path.length != fees.length + 1) {
-        throw new Error('path/fee lengths do not match')
+        throw new Error('path/fee lengths do not match');
     }
 
-    let encoded = '0x'
+    let encoded = '0x';
     for (let i = 0; i < fees.length; i++) {
         // 20 byte encoding of the address
-        encoded += path[i].slice(2)
+        encoded += path[i].slice(2);
         // 3 byte encoding of the fee
-        encoded += fees[i].toString(16).padStart(2 * FEE_SIZE, '0')
+        encoded += fees[i].toString(16).padStart(2 * FEE_SIZE, '0');
     }
     // encode the final token
-    encoded += path[path.length - 1].slice(2)
+    encoded += path[path.length - 1].slice(2);
 
-    return encoded.toLowerCase()
+    return encoded.toLowerCase();
 }
 
-describe("Fund", function () {
+describe("Fund Single Depositor", function () {
     let fund, dai, uni;
     before(async () => {
         const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
@@ -54,55 +54,93 @@ describe("Fund", function () {
             assert(initialDepositBalance.gt(0));
         });
 
-        describe("after several deposits", () => {
+        describe("after a second deposit from the same depositor", () => {
+            const deposit = ethers.utils.parseEther("100");
+            let signer1, addr1, initialDepositBalance, currentDepositBalance;
             before(async () => {
-                for (let i = 1; i < 5; i++) {
-                    const signer = await ethers.provider.getSigner(i);
-                    await getDai(dai, [await signer.getAddress()]);
-                    await dai.connect(signer).approve(fund.address, deposit);
+                initialDepositBalance = await uni.balanceOf(fund.address);
+                signer1 = await ethers.provider.getSigner(0);
+                addr1 = await signer1.getAddress();
+                await getDai(dai, [addr1]);
+                await dai.approve(fund.address, deposit);
 
-                    await fund.connect(signer).deposit(deposit);
-                }
+                await fund.deposit(deposit);
+                currentDepositBalance = await uni.balanceOf(fund.address);
             });
 
             it("should have increased", async () => {
-                const currentBalance = await uni.balanceOf(fund.address);
-                assert(currentBalance.gt(initialDepositBalance.mul(4)));
+                assert(currentDepositBalance.gt(initialDepositBalance));
+            });
+        });
+    });
+});
+
+
+describe("Fund Multiple Depositors", function () {
+    let fund, dai, uni;
+    before(async () => {
+        const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
+        const Fund = await ethers.getContractFactory("Fund");
+        fund = await Fund.deploy(path, UNI_ADDR);
+        await fund.deployed();
+
+        dai = await ethers.getContractAt("IERC20", DAI_ADDR);
+        weth = await ethers.getContractAt("IERC20", WETH_ADDR);
+        uni = await ethers.getContractAt("IERC20", UNI_ADDR);
+    });
+
+    describe("after several deposits", () => {
+        const deposit = ethers.utils.parseEther("100");
+        let addr1, initialDepositBalance;
+        before(async () => {
+            [addr1] = await ethers.provider.listAccounts();
+            for (let i = 0; i < 5; i++) {
+                const signer = await ethers.provider.getSigner(i);
+                await getDai(dai, [await signer.getAddress()]);
+                await dai.connect(signer).approve(fund.address, deposit);
+
+                await fund.connect(signer).deposit(deposit);
+            }
+        });
+
+        it("should have increased", async () => {
+            const currentBalance = await uni.balanceOf(fund.address);
+            assert(currentBalance.gt(0));
+        });
+
+        describe("after a withdrawal", () => {
+            before(async () => {
+                await fund.withdraw();
             });
 
-            describe("after a withdrawal", () => {
-                before(async () => {
+            it("should transfer", async () => {
+                const share = await uni.balanceOf(addr1);
+                assert(share.gt(0));
+            });
+
+            it("should not withdraw more funds", async () => {
+                const initialDepositBalance = await uni.balanceOf(addr1);
+                try {
                     await fund.withdraw();
-                });
+                }
+                catch(_ex) {
 
-                it("should transfer the initial deposit share", async () => {
-                    const share = await uni.balanceOf(addr1);
-                    assert(share.eq(initialDepositBalance));
-                });
+                }
+                const share = await uni.balanceOf(addr1);
+                assert(share.eq(initialDepositBalance));
+            });
 
-                it("should not withdraw more funds", async () => {
-                    try {
-                        await fund.withdraw();
+            describe("after all withdrawals", () => {
+                before(async () => {
+                    for (let i = 1; i < 5; i++) {
+                        const signer = await ethers.provider.getSigner(i);
+                        await fund.connect(signer).withdraw();
                     }
-                    catch(_ex) {
-
-                    }
-                    const share = await uni.balanceOf(addr1);
-                    assert(share.eq(initialDepositBalance));
                 });
 
-                describe("after all withdrawals", () => {
-                    before(async () => {
-                        for (let i = 1; i < 5; i++) {
-                            const signer = await ethers.provider.getSigner(i);
-                            await fund.connect(signer).withdraw();
-                        }
-                    });
-
-                    it("should have no more uni", async () => {
-                        const balance = await uni.balanceOf(fund.address);
-                        assert(balance.eq(0));
-                    });
+                it("should have no more uni", async () => {
+                    const balance = await uni.balanceOf(fund.address);
+                    assert(balance.eq(0));
                 });
             });
         });

@@ -32,7 +32,7 @@ contract Fund {
             0
         );
 
-        share[msg.sender] = router.exactInput(params);
+        share[msg.sender] += router.exactInput(params);
     }
 
     function withdraw() external {

@@ -8,20 +8,20 @@ const UNI_ADDR = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984";
 const FEE_SIZE = 3;
 function encodePath(path, fees) {
     if (path.length != fees.length + 1) {
-        throw new Error('path/fee lengths do not match')
+        throw new Error('path/fee lengths do not match');
     }
 
-    let encoded = '0x'
+    let encoded = '0x';
     for (let i = 0; i < fees.length; i++) {
         // 20 byte encoding of the address
-        encoded += path[i].slice(2)
+        encoded += path[i].slice(2);
         // 3 byte encoding of the fee
-        encoded += fees[i].toString(16).padStart(2 * FEE_SIZE, '0')
+        encoded += fees[i].toString(16).padStart(2 * FEE_SIZE, '0');
     }
     // encode the final token
-    encoded += path[path.length - 1].slice(2)
+    encoded += path[path.length - 1].slice(2);
 
-    return encoded.toLowerCase()
+    return encoded.toLowerCase();
 }
 
 describe("Fund", function () {
