@@ -91,7 +91,7 @@ describe("Fund Multiple Depositors", function () {
 
     describe("after several deposits", () => {
         const deposit = ethers.utils.parseEther("100");
-        let addr1, initialDepositBalance;
+        let addr1;
         before(async () => {
             [addr1] = await ethers.provider.listAccounts();
             for (let i = 0; i < 5; i++) {
