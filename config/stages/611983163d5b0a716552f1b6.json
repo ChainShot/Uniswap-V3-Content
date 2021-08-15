@@ -1,0 +1,24 @@
+{
+  "containerId": "60d1f294f687cdf5ca92e7e5",
+  "title": "Switch",
+  "abiValidations": "$$LOOKUP",
+  "task": "$$LOOKUP",
+  "details": "$$LOOKUP",
+  "id": "611983163d5b0a716552f1b6",
+  "type": "CodeStage",
+  "language": "solidity",
+  "languageVersion": "0.7.5",
+  "testFramework": "truffle_with_mocha",
+  "codeFileIds": [
+    "60d1f2f5f687cdf5ca92e7e7",
+    "60d1f2f5f687cdf5ca92e7e8",
+    "60d1f351f687cdf5ca92e7ea",
+    "60d1f3a5f687cdf5ca92e7ec",
+    "60d1f406f687cdf5ca92e7ee",
+    "60d1f434f687cdf5ca92e7ef"
+  ],
+  "position": 3,
+  "youtubeId": null,
+  "src": null,
+  "forkBlockNumber": 12683564
+}
