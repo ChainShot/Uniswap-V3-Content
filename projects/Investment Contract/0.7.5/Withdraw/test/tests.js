@@ -27,9 +27,8 @@ function encodePath(path, fees) {
 describe("Fund Single Depositor", function () {
     let fund, dai, uni;
     before(async () => {
-        const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
         const Fund = await ethers.getContractFactory("Fund");
-        fund = await Fund.deploy(path, UNI_ADDR);
+        fund = await Fund.deploy();
         await fund.deployed();
 
         dai = await ethers.getContractAt("IERC20", DAI_ADDR);
@@ -39,7 +38,7 @@ describe("Fund Single Depositor", function () {
 
     describe("after a deposit", () => {
         const deposit = ethers.utils.parseEther("100");
-        let signer1, addr1, initialDepositBalance;
+        let signer1, addr1, currentDepositBalance;
         before(async () => {
             signer1 = await ethers.provider.getSigner(0);
             addr1 = await signer1.getAddress();
@@ -47,100 +46,93 @@ describe("Fund Single Depositor", function () {
             await dai.approve(fund.address, deposit);
 
             await fund.deposit(deposit);
-            initialDepositBalance = await uni.balanceOf(fund.address);
+            currentDepositBalance = await dai.balanceOf(fund.address);
         });
 
-        it("should be invested", async () => {
-            assert(initialDepositBalance.gt(0));
+        it("should have increased the dai holdings", async () => {
+            assert(currentDepositBalance.eq(deposit));
         });
 
-        describe("after a second deposit from the same depositor", () => {
-            const deposit = ethers.utils.parseEther("100");
-            let signer1, addr1, initialDepositBalance, currentDepositBalance;
+        it("should have set their share", async () => {
+            let share = await fund.share(addr1);
+            assert(share.eq(deposit));
+        });
+
+        describe("after a second deposit from another addr", () => {
+            const deposit2 = ethers.utils.parseEther("100");
+            let signer2, addr2;
             before(async () => {
-                initialDepositBalance = await uni.balanceOf(fund.address);
-                signer1 = await ethers.provider.getSigner(0);
-                addr1 = await signer1.getAddress();
-                await getDai(dai, [addr1]);
-                await dai.approve(fund.address, deposit);
+                signer2 = await ethers.provider.getSigner(1);
+                addr2 = await signer2.getAddress();
+                await getDai(dai, [addr2]);
+                await dai.connect(signer2).approve(fund.address, deposit2);
 
-                await fund.deposit(deposit);
-                currentDepositBalance = await uni.balanceOf(fund.address);
+                await fund.connect(signer2).deposit(deposit2);
+                currentDepositBalance = await dai.balanceOf(fund.address);
             });
 
-            it("should have increased", async () => {
-                assert(currentDepositBalance.gt(initialDepositBalance));
-            });
-        });
-    });
-});
-
-
-describe("Fund Multiple Depositors", function () {
-    let fund, dai, uni;
-    before(async () => {
-        const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
-        const Fund = await ethers.getContractFactory("Fund");
-        fund = await Fund.deploy(path, UNI_ADDR);
-        await fund.deployed();
-
-        dai = await ethers.getContractAt("IERC20", DAI_ADDR);
-        weth = await ethers.getContractAt("IERC20", WETH_ADDR);
-        uni = await ethers.getContractAt("IERC20", UNI_ADDR);
-    });
-
-    describe("after several deposits", () => {
-        const deposit = ethers.utils.parseEther("100");
-        let addr1;
-        before(async () => {
-            [addr1] = await ethers.provider.listAccounts();
-            for (let i = 0; i < 5; i++) {
-                const signer = await ethers.provider.getSigner(i);
-                await getDai(dai, [await signer.getAddress()]);
-                await dai.connect(signer).approve(fund.address, deposit);
-
-                await fund.connect(signer).deposit(deposit);
-            }
-        });
-
-        it("should have increased", async () => {
-            const currentBalance = await uni.balanceOf(fund.address);
-            assert(currentBalance.gt(0));
-        });
-
-        describe("after a withdrawal", () => {
-            before(async () => {
-                await fund.withdraw();
+            it("should have increased the dai holdings", async () => {
+                assert(currentDepositBalance.eq(deposit.add(deposit2)));
             });
 
-            it("should transfer", async () => {
-                const share = await uni.balanceOf(addr1);
-                assert(share.gt(0));
+            it("should have set their share", async () => {
+                let share = await fund.share(addr1);
+                assert(share.eq(deposit2));
             });
 
-            it("should not withdraw more funds", async () => {
-                const initialDepositBalance = await uni.balanceOf(addr1);
-                try {
-                    await fund.withdraw();
-                }
-                catch(_ex) {
 
-                }
-                const share = await uni.balanceOf(addr1);
-                assert(share.eq(initialDepositBalance));
-            });
-
-            describe("after all withdrawals", () => {
+            describe("after an investment", () => {
                 before(async () => {
-                    for (let i = 1; i < 5; i++) {
-                        const signer = await ethers.provider.getSigner(i);
-                        await fund.connect(signer).withdraw();
-                    }
+                    const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
+
+                    await fund.invest(path);
                 });
 
-                it("should have no more uni", async () => {
-                    const balance = await uni.balanceOf(fund.address);
-                    assert(balance.eq(0));
+                it("should hold uni", async () => {
+                    const uniBalance = await uni.balanceOf(fund.address);
+                    assert(uniBalance.gt(0));
+                });
+
+                it("should no longer hold dai", async () => {
+                    const daiBalance = await dai.balanceOf(fund.address);
+                    assert(daiBalance.eq(0));
+                });
+
+                describe("after a divestment", () => {
+                    before(async () => {
+                        const path = encodePath([UNI_ADDR, WETH_ADDR, DAI_ADDR], [3000, 3000]);
+
+                        await fund.divest(path);
+                    });
+
+                    it("should no longer hold uni", async () => {
+                        const uniBalance = await uni.balanceOf(fund.address);
+                        assert(uniBalance.eq(0));
+                    });
+
+                    it("should hold dai", async () => {
+                        const daiBalance = await dai.balanceOf(fund.address);
+                        assert(daiBalance.gt(0));
+                    });
+
+                    describe("withdrawals", () => {
+                        before(async () => {
+                            await fund.connect(signer1).withdraw();
+                            await fund.connect(signer2).withdraw();
+                        });
+
+                        it("should no longer hold dai", async () => {
+                            const daiBalance = await dai.balanceOf(fund.address);
+                            assert(daiBalance.lte(1));
+                        });
+
+                        it("should withdraw to both depositors", async () => {
+                            const balance1 = await dai.balanceOf(addr1);
+                            const balance2 = await dai.balanceOf(addr2);
+                            assert(balance1.gt(0));
+                            assert(balance2.gt(0));
+                        });
+                    });
                 });
             });
         });
