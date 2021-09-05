@@ -31,9 +31,9 @@ describe("Fund Single Depositor", function () {
         fund = await Fund.deploy();
         await fund.deployed();
 
-        dai = await ethers.getContractAt("IERC20", DAI_ADDR);
-        weth = await ethers.getContractAt("IERC20", WETH_ADDR);
-        uni = await ethers.getContractAt("IERC20", UNI_ADDR);
+        dai = await ethers.getContractAt("IERC20Minimal", DAI_ADDR);
+        weth = await ethers.getContractAt("IERC20Minimal", WETH_ADDR);
+        uni = await ethers.getContractAt("IERC20Minimal", UNI_ADDR);
     });
 
     describe("after a deposit", () => {

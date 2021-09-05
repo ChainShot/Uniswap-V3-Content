@@ -5,7 +5,6 @@ pragma abicoder v2;
 import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 import "@uniswap/v3-periphery/contracts/libraries/BytesLib.sol";
-import "hardhat/console.sol";
 
 contract Fund {
     IERC20Minimal dai = IERC20Minimal(0x6B175474E89094C44Da98b954EedeAC495271d0F);
@@ -16,7 +15,7 @@ contract Fund {
     bool public hasInvested; 
     bool public hasDivested;
 
-    mapping (address => uint) public share;
+    mapping (address => uint) share;
 
     uint public initialDaiAmount;
     uint public endingDaiAmount;
@@ -56,7 +55,7 @@ contract Fund {
 
         uint erc20Amount = IERC20Minimal(asset).balanceOf(address(this));
 
-        IERC20Minimal(asset).approve(address(router), erc20Amount);
+        IERC20Minimal(asset).approve(address(asset), erc20Amount);
 
         ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
             path,

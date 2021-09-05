@@ -1,7 +1,7 @@
 {
   "executablePath": "contracts/ISwapRouter.sol",
   "name": "ISwapRouter.sol",
-  "executable": true,
+  "executable": false,
   "hasProgress": false,
   "mode": "sol",
   "readOnly": true,
