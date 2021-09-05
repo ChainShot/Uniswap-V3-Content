@@ -2,38 +2,39 @@
 pragma solidity ^0.7.5;
 pragma abicoder v2;
 
-import "./IERC20.sol";
-import "./ISwapRouter.sol";
+import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
+import "@uniswap/v3-periphery/contracts/libraries/BytesLib.sol";
 
 contract Fund {
-    IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
+    IERC20Minimal dai = IERC20Minimal(0x6B175474E89094C44Da98b954EedeAC495271d0F);
     ISwapRouter router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
-    address investment;
-    bytes path;
+    address owner = msg.sender;
 
-    constructor(bytes memory _path, address _investment) {
-        path = _path;
-        investment = _investment;
+    bool public hasInvested; 
+    bool public hasDivested;
 
-        IERC20(dai).approve(address(router), uint(-1));
-    }
+    mapping (address => uint) public share;
+
+    uint public initialDaiAmount;
+    uint public endingDaiAmount;
 
     function deposit(uint _amount) external {
         require(dai.transferFrom(msg.sender, address(this), _amount));
 
-        ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
-            path,
-            address(this),
-            block.timestamp,
-            _amount,
-            0
-        );
-
-        router.exactInput(params);
+        share[msg.sender] += _amount;
     }
 
-    function withdraw() external {
+    // function invest(bytes memory path) external {
+        
+    // }
+    
+    // function divest(bytes memory path) external {
+        
+    // }
 
-    }
+    // function withdraw() external {
+        
+    // }
 }

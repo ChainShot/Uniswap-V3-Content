@@ -1,5 +1,6 @@
-## Withdraw 
+## Constructor
 
-Allow users to withdraw their share any time they would like. 
+Let's setup our contract! We'll be initializing two storage variables:
 
-They should receive their share of the investment, which should be tracked at the time of the deposit. 
+- `investment` - the asset that is being invested in currently
+- `path` - the encoded path from DAI to the investment 

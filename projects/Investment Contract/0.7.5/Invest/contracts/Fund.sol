@@ -26,9 +26,25 @@ contract Fund {
         share[msg.sender] += _amount;
     }
 
-    // function invest(bytes memory path) external {
-        
-    // }
+    function invest(bytes memory path) external {
+        require(owner == msg.sender);
+
+        hasInvested = true;
+
+        initialDaiAmount = dai.balanceOf(address(this));
+
+        IERC20Minimal(dai).approve(address(router), initialDaiAmount);
+
+        ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
+            path,
+            address(this),
+            block.timestamp,
+            initialDaiAmount,
+            0
+        );
+
+        router.exactInput(params);
+    }
     
     // function divest(bytes memory path) external {
         

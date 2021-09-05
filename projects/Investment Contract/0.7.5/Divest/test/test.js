@@ -114,25 +114,6 @@ describe("Fund Single Depositor", function () {
                         const daiBalance = await dai.balanceOf(fund.address);
                         assert(daiBalance.gt(0));
                     });
-
-                    describe("withdrawals", () => {
-                        before(async () => {
-                            await fund.connect(signer1).withdraw();
-                            await fund.connect(signer2).withdraw();
-                        });
-
-                        it("should no longer hold dai", async () => {
-                            const daiBalance = await dai.balanceOf(fund.address);
-                            assert(daiBalance.lte(1));
-                        });
-
-                        it("should withdraw to both depositors", async () => {
-                            const balance1 = await dai.balanceOf(addr1);
-                            const balance2 = await dai.balanceOf(addr2);
-                            assert(balance1.gt(0));
-                            assert(balance2.gt(0));
-                        });
-                    });
                 });
             });
         });

@@ -15,7 +15,7 @@ contract Fund {
     bool public hasInvested; 
     bool public hasDivested;
 
-    mapping (address => uint) share;
+    mapping (address => uint) public share;
 
     uint public initialDaiAmount;
     uint public endingDaiAmount;
@@ -55,7 +55,7 @@ contract Fund {
 
         uint erc20Amount = IERC20Minimal(asset).balanceOf(address(this));
 
-        IERC20Minimal(asset).approve(address(asset), erc20Amount);
+        IERC20Minimal(asset).approve(address(router), erc20Amount);
 
         ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
             path,
@@ -70,13 +70,7 @@ contract Fund {
         endingDaiAmount = dai.balanceOf(address(this));
     }
 
-    function withdraw() external {
-        require(hasInvested && hasInvested);
-
-        uint owed = (share[msg.sender] * endingDaiAmount) / initialDaiAmount;
-
-        dai.transfer(msg.sender, owed);
-
-        share[msg.sender] = 0;
-    }
+    // function withdraw() external {
+        
+    // }
 }
