@@ -4,7 +4,8 @@
   "testFixture": false,
   "stageContainerId": "61352cc5741738f1330503ca",
   "codeStageIds": [
-    "613539b6741738f1330503d1"
+    "613539b6741738f1330503d1",
+    "61357564741738f1330503db"
   ],
   "id": "613539b6741738f1330503d3",
   "initialCode": "$$LOOKUP",
