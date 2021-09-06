@@ -1,6 +1,6 @@
 {
   "containerId": "61352cc5741738f1330503ca",
-  "title": "Add Liquidity",
+  "title": "Create Pool",
   "abiValidations": "$$LOOKUP",
   "task": "$$LOOKUP",
   "details": "$$LOOKUP",
