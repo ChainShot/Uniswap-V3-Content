@@ -1,0 +1,17 @@
+{
+  "executablePath": "computePoolAddress.js",
+  "name": "computePoolAddress.js",
+  "executable": true,
+  "hasProgress": false,
+  "mode": "javascript",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": false,
+  "stageContainerId": "61352cc5741738f1330503ca",
+  "codeStageIds": [
+    "61357564741738f1330503db"
+  ],
+  "id": "61357e73741738f1330503e2",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}

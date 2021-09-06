@@ -1,0 +1,17 @@
+{
+  "executablePath": "addLiquidity.js",
+  "name": "addLiquidity.js",
+  "executable": true,
+  "hasProgress": true,
+  "mode": "javascript",
+  "readOnly": false,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "61352cc5741738f1330503ca",
+  "codeStageIds": [
+    "61357564741738f1330503db"
+  ],
+  "id": "61357da8741738f1330503e0",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}

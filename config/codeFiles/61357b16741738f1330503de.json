@@ -1,0 +1,17 @@
+{
+  "executablePath": "encodePriceSqrt.js",
+  "name": "encodePriceSqrt.js",
+  "executable": true,
+  "hasProgress": false,
+  "mode": "javascript",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": false,
+  "stageContainerId": "61352cc5741738f1330503ca",
+  "codeStageIds": [
+    "61357564741738f1330503db"
+  ],
+  "id": "61357b16741738f1330503de",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}
