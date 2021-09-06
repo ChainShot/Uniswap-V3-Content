@@ -1,0 +1,21 @@
+{
+  "containerId": "61352cc5741738f1330503ca",
+  "title": "Create Token",
+  "abiValidations": "$$LOOKUP",
+  "task": "$$LOOKUP",
+  "details": "$$LOOKUP",
+  "id": "61352dac741738f1330503cb",
+  "type": "CodeStage",
+  "language": "solidity",
+  "languageVersion": "0.8.4",
+  "testFramework": "truffle_with_mocha",
+  "codeFileIds": [
+    "61352dac741738f1330503cc",
+    "61352dac741738f1330503cd",
+    "61352e11741738f1330503cf"
+  ],
+  "position": 0,
+  "youtubeId": null,
+  "src": null,
+  "forkBlockNumber": null
+}

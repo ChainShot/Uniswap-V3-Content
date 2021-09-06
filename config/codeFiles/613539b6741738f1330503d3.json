@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/IPoolInitializer.sol",
+  "name": "IPoolInitializer.sol",
+  "testFixture": false,
+  "stageContainerId": "61352cc5741738f1330503ca",
+  "codeStageIds": [
+    "613539b6741738f1330503d1"
+  ],
+  "id": "613539b6741738f1330503d3",
+  "initialCode": "$$LOOKUP",
+  "mode": "sol",
+  "visible": true,
+  "executable": true,
+  "hasProgress": false,
+  "fileLocation": null,
+  "readOnly": true
+}
