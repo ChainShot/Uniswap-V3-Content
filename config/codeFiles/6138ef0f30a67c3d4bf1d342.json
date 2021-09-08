@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/BytesLib.sol",
+  "name": "BytesLib.sol",
+  "executable": false,
+  "hasProgress": false,
+  "mode": "sol",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "60d1f294f687cdf5ca92e7e5",
+  "codeStageIds": [
+    "61352185741738f1330503c3"
+  ],
+  "id": "6138ef0f30a67c3d4bf1d342",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}
