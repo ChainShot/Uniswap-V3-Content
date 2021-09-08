@@ -12,9 +12,6 @@ contract Fund {
 
     address owner = msg.sender;
 
-    bool public hasInvested; 
-    bool public hasDivested;
-
     mapping (address => uint) public share;
 
     uint public initialDaiAmount;
@@ -28,8 +25,6 @@ contract Fund {
 
     function invest(bytes memory path) external {
         require(owner == msg.sender);
-
-        hasInvested = true;
 
         initialDaiAmount = dai.balanceOf(address(this));
 
@@ -48,8 +43,6 @@ contract Fund {
     
     function divest(bytes memory path) external {
         require(owner == msg.sender);
-
-        hasDivested = true;
 
         address asset = BytesLib.toAddress(path, 0);
 
@@ -71,8 +64,6 @@ contract Fund {
     }
 
     function withdraw() external {
-        require(hasInvested && hasInvested);
-
         uint owed = (share[msg.sender] * endingDaiAmount) / initialDaiAmount;
 
         dai.transfer(msg.sender, owed);
