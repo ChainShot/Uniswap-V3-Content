@@ -28,7 +28,7 @@ contract Fund {
 
         initialDaiAmount = dai.balanceOf(address(this));
 
-        IERC20Minimal(dai).approve(address(router), initialDaiAmount);
+        dai.approve(address(router), initialDaiAmount);
 
         ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams(
             path,
