@@ -80,7 +80,6 @@ describe("Fund Single Depositor", function () {
                 assert(share.eq(deposit2));
             });
 
-
             describe("after an investment", () => {
                 before(async () => {
                     const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);

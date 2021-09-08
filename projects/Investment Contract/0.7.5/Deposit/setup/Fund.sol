@@ -12,13 +12,7 @@ contract Fund {
 
     address owner = msg.sender;
 
-    bool public hasInvested; 
-    bool public hasDivested;
-
     mapping (address => uint) public share;
-
-    uint public initialDaiAmount;
-    uint public endingDaiAmount;
 
     function deposit(uint _amount) external {
         

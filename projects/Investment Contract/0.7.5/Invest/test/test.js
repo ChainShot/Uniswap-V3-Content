@@ -79,6 +79,24 @@ describe("Fund Single Depositor", function () {
                 let share = await fund.share(addr1);
                 assert(share.eq(deposit2));
             });
+
+            describe("after an investment", () => {
+                before(async () => {
+                    const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
+
+                    await fund.invest(path);
+                });
+
+                it("should hold uni", async () => {
+                    const uniBalance = await uni.balanceOf(fund.address);
+                    assert(uniBalance.gt(0));
+                });
+
+                it("should no longer hold dai", async () => {
+                    const daiBalance = await dai.balanceOf(fund.address);
+                    assert(daiBalance.eq(0));
+                });
+            });
         });
     });
 });
