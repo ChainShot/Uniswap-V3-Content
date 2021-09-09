@@ -59,7 +59,7 @@ describe('createPool', function () {
             const { sqrtPriceX96 } = slot0;
             const bigInt = sqrtPriceX96.mul(sqrtPriceX96).mul((1e18).toString()).toBigInt();
             const price = bigInt >> 96n * 2n;
-            expect(ethers.BigNumber.from(price)).to.be.closeTo(ethers.utils.parseEther("10"), 1);
+            expect(ethers.BigNumber.from(price)).to.be.closeTo(ethers.utils.parseEther(".1"), 1);
         });
     });
 
@@ -88,7 +88,7 @@ describe('createPool', function () {
             const { sqrtPriceX96 } = slot0;
             const bigInt = sqrtPriceX96.mul(sqrtPriceX96).mul((1e18).toString()).toBigInt();
             const price = bigInt >> 96n * 2n;
-            expect(ethers.BigNumber.from(price)).to.be.closeTo(ethers.utils.parseEther(".1"), 1);
+            expect(ethers.BigNumber.from(price)).to.be.closeTo(ethers.utils.parseEther("10"), 1);
         });
     });
 });

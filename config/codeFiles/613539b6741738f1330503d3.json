@@ -11,7 +11,7 @@
   "id": "613539b6741738f1330503d3",
   "initialCode": "$$LOOKUP",
   "mode": "sol",
-  "visible": false,
+  "visible": true,
   "executable": true,
   "hasProgress": false,
   "fileLocation": null,

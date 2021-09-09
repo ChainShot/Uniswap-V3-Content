@@ -6,7 +6,7 @@ async function createPool(poolInitializer, tokenAddress, wethAddress, tokenAmoun
             tokenAddress,
             wethAddress,
             3000,
-            encodePriceSqrt(tokenAmount, wethAmount)
+            encodePriceSqrt(wethAmount, tokenAmount)
         );
     }
     else {
@@ -14,7 +14,7 @@ async function createPool(poolInitializer, tokenAddress, wethAddress, tokenAmoun
             wethAddress,
             tokenAddress,
             3000,
-            encodePriceSqrt(wethAmount, tokenAmount)
+            encodePriceSqrt(tokenAmount, wethAmount)
         );
     }
 }
