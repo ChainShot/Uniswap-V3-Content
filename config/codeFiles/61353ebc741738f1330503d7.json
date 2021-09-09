@@ -4,7 +4,7 @@
   "executable": true,
   "hasProgress": false,
   "mode": "sol",
-  "readOnly": false,
+  "readOnly": true,
   "testFixture": false,
   "visible": false,
   "stageContainerId": "61352cc5741738f1330503ca",

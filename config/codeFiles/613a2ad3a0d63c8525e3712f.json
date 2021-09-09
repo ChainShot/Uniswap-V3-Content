@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/INonfungiblePositionManager.sol",
+  "name": "INonfungiblePositionManager.sol",
+  "executable": false,
+  "hasProgress": false,
+  "mode": "sol",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "61352cc5741738f1330503ca",
+  "codeStageIds": [
+    "61357564741738f1330503db"
+  ],
+  "id": "613a2ad3a0d63c8525e3712f",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}
