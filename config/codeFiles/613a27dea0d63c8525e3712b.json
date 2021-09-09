@@ -1,7 +1,7 @@
 {
-  "executablePath": "contracts/IERC20.sol",
-  "name": "IERC20.sol",
-  "executable": true,
+  "executablePath": "contracts/ERC20.sol",
+  "name": "ERC20.sol",
+  "executable": false,
   "hasProgress": false,
   "mode": "sol",
   "readOnly": true,
@@ -11,7 +11,7 @@
   "codeStageIds": [
     "61352dac741738f1330503cb"
   ],
-  "id": "61352e11741738f1330503cf",
+  "id": "613a27dea0d63c8525e3712b",
   "initialCode": "$$LOOKUP",
   "fileLocation": null
 }
