@@ -1,19 +1,17 @@
 {
-  "executablePath": "contracts/ERC20.sol",
-  "name": "ERC20.sol",
+  "executablePath": "contracts/IdHelper.sol",
+  "name": "IdHelper.sol",
   "executable": true,
   "hasProgress": false,
   "mode": "sol",
-  "readOnly": false,
+  "readOnly": true,
   "testFixture": false,
   "visible": false,
   "stageContainerId": "61352cc5741738f1330503ca",
   "codeStageIds": [
-    "613539b6741738f1330503d1",
-    "61357564741738f1330503db",
     "61398668a0d63c8525e3711c"
   ],
-  "id": "61353ebc741738f1330503d7",
+  "id": "613a1a94a0d63c8525e37127",
   "initialCode": "$$LOOKUP",
   "fileLocation": null
 }

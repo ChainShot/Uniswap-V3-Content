@@ -1,17 +1,17 @@
 {
-  "executablePath": "addLiquidity.js",
-  "name": "addLiquidity.js",
+  "executablePath": "createIncentive.js",
+  "name": "createIncentive.js",
   "executable": true,
   "hasProgress": true,
   "mode": "javascript",
   "readOnly": false,
   "testFixture": false,
-  "visible": false,
+  "visible": true,
   "stageContainerId": "61352cc5741738f1330503ca",
   "codeStageIds": [
-    "61357564741738f1330503db"
+    "61398668a0d63c8525e3711c"
   ],
-  "id": "61357da8741738f1330503e0",
+  "id": "613a1fcfa0d63c8525e37129",
   "initialCode": "$$LOOKUP",
   "fileLocation": null
 }

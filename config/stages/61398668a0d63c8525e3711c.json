@@ -1,0 +1,26 @@
+{
+  "containerId": "61352cc5741738f1330503ca",
+  "title": "Kick Off",
+  "abiValidations": "$$LOOKUP",
+  "task": "$$LOOKUP",
+  "details": "$$LOOKUP",
+  "id": "61398668a0d63c8525e3711c",
+  "type": "CodeStage",
+  "language": "solidity",
+  "languageVersion": "0.7.5",
+  "testFramework": "truffle_with_mocha",
+  "codeFileIds": [
+    "613539b6741738f1330503d3",
+    "61353ebc741738f1330503d7",
+    "61398686a0d63c8525e3711e",
+    "613986a0a0d63c8525e3711f",
+    "613a16d1a0d63c8525e37120",
+    "613a17cfa0d63c8525e37122",
+    "613a1a94a0d63c8525e37127",
+    "613a1fcfa0d63c8525e37129"
+  ],
+  "position": 3,
+  "youtubeId": null,
+  "src": null,
+  "forkBlockNumber": 12723374
+}
