@@ -1,17 +1,11 @@
-## Invest
+## Investment Manager
 
-Now that the DAI has been deposited, it is time to invest those funds into an ERC20 token! 
+Now that all the shareholders have a way to deposit their DAI, we need to have the investment `manager` invest the funds along a specified `path`. 
 
-### <emoji id="checkered_flag"> Your Goal: Invest Along the Path
+To begin with, let's make sure __only__ the investment manager can call this function. 
 
-Uncomment and implement the `invest` function. This function should swap the DAI for an ERC20 following the `path` argument. 
+> <emoji id="face_with_monocle"/> While the `manager` is just a single address, it could be set as an Externally Owned Account or a more decentralized smart contract like a Multi-Sig or Governor contract.
 
-In order to do so you will first need to `approve` the Dai to be spent. 
+### <emoji id="checkered_flag"> Your Goal: Manager Only
 
-After that you will need to usw the `exactInput` function where:
-
-- `path`: the token path passed in to the function
-- `recipient`: our contract should receive the NFT position
-- `deadline`: any future time as this will execute immediately, you can use `block.timestamp` here
-- `amountIn`: the total amount of dai to be invested
-- `amountOutMin`: this can be zero as we will not get front-run here
+Ensure that __only__ the manager can call the `invest` function. If anyone else tries to call this function, revert the transaction.

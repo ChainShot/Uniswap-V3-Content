@@ -8,7 +8,7 @@ Uncomment and implement the `invest` function. This function should swap the DAI
 
 In order to do so you will first need to `approve` the Dai to be spent. 
 
-After that you will need to usw the `exactInput` function where:
+After that you will need to use the `exactInput` function where:
 
 - `path`: the token path passed in to the function
 - `recipient`: our contract should receive the NFT position
