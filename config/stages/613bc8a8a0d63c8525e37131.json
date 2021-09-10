@@ -1,10 +1,10 @@
 {
   "containerId": "60d1f294f687cdf5ca92e7e5",
-  "title": "Invest",
+  "title": "Manager 1",
   "abiValidations": "$$LOOKUP",
   "task": "$$LOOKUP",
   "details": "$$LOOKUP",
-  "id": "61352110741738f1330503c0",
+  "id": "613bc8a8a0d63c8525e37131",
   "type": "CodeStage",
   "language": "solidity",
   "languageVersion": "0.7.5",
@@ -14,9 +14,9 @@
     "60d1f351f687cdf5ca92e7ea",
     "60d1f406f687cdf5ca92e7ee",
     "60d1f434f687cdf5ca92e7ef",
-    "61352146741738f1330503c2"
+    "613bc922a0d63c8525e37133"
   ],
-  "position": 2,
+  "position": 1,
   "youtubeId": null,
   "src": null,
   "forkBlockNumber": 12683564

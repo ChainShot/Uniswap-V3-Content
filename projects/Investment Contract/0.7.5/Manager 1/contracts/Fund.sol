@@ -12,13 +12,9 @@ contract Fund {
 
     address manager = msg.sender;
 
-    bool public hasInvested; 
-    bool public hasDivested;
-
     mapping (address => uint) public share;
 
-    uint public initialDaiAmount;
-    uint public endingDaiAmount;
+    uint initialDaiAmount;
 
     function deposit(uint _amount) external {
         require(dai.transferFrom(msg.sender, address(this), _amount));
@@ -26,9 +22,10 @@ contract Fund {
         share[msg.sender] += _amount;
     }
 
-    // function invest(bytes memory path) external {
+    function invest(bytes memory path) external {
+        require(manager == msg.sender);
         
-    // }
+    }
     
     // function divest(bytes memory path) external {
         
