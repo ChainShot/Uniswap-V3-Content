@@ -1,5 +1,6 @@
 const chai = require('chai');
 const { assert, expect } = chai;
+const getDai = require("./getDai");
 
 const DAI_ADDR = "0x6b175474e89094c44da98b954eedeac495271d0f";
 const WETH_ADDR = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
@@ -25,24 +26,72 @@ function encodePath(path, fees) {
 }
 
 describe("Fund Single Depositor", function () {
-    const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
-    let fund;
+    let fund, dai, uni;
     before(async () => {
         const Fund = await ethers.getContractFactory("Fund");
         fund = await Fund.deploy();
         await fund.deployed();
+
+        dai = await ethers.getContractAt("IERC20Minimal", DAI_ADDR);
+        weth = await ethers.getContractAt("IERC20Minimal", WETH_ADDR);
+        uni = await ethers.getContractAt("IERC20Minimal", UNI_ADDR);
     });
 
-    describe("a manager invests", () => {
-        it("should not revert", async () => {
-            await fund.invest(path);
+    describe("after a deposit", () => {
+        const deposit = ethers.utils.parseEther("100");
+        let signer1, addr1, currentDepositBalance;
+        before(async () => {
+            signer1 = await ethers.provider.getSigner(0);
+            addr1 = await signer1.getAddress();
+            await getDai(dai, [addr1]);
+            await dai.approve(fund.address, deposit);
+
+            await fund.deposit(deposit);
+            currentDepositBalance = await dai.balanceOf(fund.address);
         });
-    });
 
-    describe("a non-manager invests", () => {
-        it("should revert", async () => {
-            const nonManager = await ethers.provider.getSigner(1);
-            await expect(fund.connect(nonManager).invest(path)).to.be.reverted;
+        it("should have increased the dai holdings", async () => {
+            assert(currentDepositBalance.eq(deposit));
+        });
+
+        it("should have set their share", async () => {
+            let share = await fund.share(addr1);
+            assert(share.eq(deposit));
+        });
+
+        describe("after an investment", () => {
+            before(async () => {
+                const path = encodePath([DAI_ADDR, WETH_ADDR, UNI_ADDR], [3000, 3000]);
+
+                await fund.invest(path);
+            });
+
+            it("should hold uni", async () => {
+                const uniBalance = await uni.balanceOf(fund.address);
+                assert(uniBalance.gt(0));
+            });
+
+            it("should no longer hold dai", async () => {
+                const daiBalance = await dai.balanceOf(fund.address);
+                assert(daiBalance.eq(0));
+            });
+
+            describe("after a divestment", () => {
+                const divestPath = encodePath([UNI_ADDR, WETH_ADDR, DAI_ADDR], [3000, 3000]);
+
+                describe("a manager divests", () => {
+                    it("should not revert", async () => {
+                        await fund.divest(divestPath);
+                    });
+                });
+
+                describe("a non-manager divests", () => {
+                    it("should revert", async () => {
+                        const nonManager = await ethers.provider.getSigner(1);
+                        await expect(fund.connect(nonManager).divest(divestPath)).to.be.reverted;
+                    });
+                });
+            });
         });
     });
 });
