@@ -22,5 +22,6 @@
   "position": 3,
   "youtubeId": null,
   "src": null,
-  "forkBlockNumber": 12723374
+  "forkBlockNumber": 12723374,
+  "completionMessage": "$$LOOKUP"
 }
