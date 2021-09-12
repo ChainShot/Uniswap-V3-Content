@@ -1,3 +1,7 @@
 ## Investment Contract
 
-In this exercise we're going to build an investment contract which allows a group of addresses to deposit DAI for an investment into an ERC20 token. Once all the DAI has been invested the owner of the contract can invest along a given `path` to an ERC20 token of their choice. After the investment is complete, they can move the funds back into DAI so that the shareholders can withdraw.
+In this exercise we're going to build an investment contract which allows a group of addresses to deposit DAI for an investment into ERC20 tokens. 
+
+After all the deposits are completed, a `manager` address can choose to invest the Dai along a specific `path` to make the investment.
+
+Finally, after a period of time, that same `manager` can divest into Dai; allowing those who deposited to withdraw their share of the resulting Dai (plus gains or minus losses).
