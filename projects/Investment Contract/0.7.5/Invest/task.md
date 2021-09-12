@@ -4,7 +4,7 @@ Now that the DAI has been deposited, it is time to invest those funds into an ER
 
 ### <emoji id="checkered_flag"> Your Goal: Invest Along the Path
 
-Uncomment and implement the `invest` function. This function should swap the DAI for an ERC20 following the `path` argument. 
+Finish implementing the `invest` function. This function should swap the DAI for an ERC20 following the `path` argument. 
 
 In order to do so you will first need to `approve` the Dai to be spent. 
 
