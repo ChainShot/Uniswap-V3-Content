@@ -10,7 +10,7 @@ contract Fund {
     IERC20Minimal dai = IERC20Minimal(0x6B175474E89094C44Da98b954EedeAC495271d0F);
     ISwapRouter router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
-    address owner = msg.sender;
+    address manager = msg.sender;
 
     mapping (address => uint) public share;
 
@@ -24,7 +24,7 @@ contract Fund {
     }
 
     function invest(bytes memory path) external {
-        require(owner == msg.sender);
+        require(manager == msg.sender);
 
         initialDaiAmount = dai.balanceOf(address(this));
 
@@ -42,7 +42,7 @@ contract Fund {
     }
     
     function divest(bytes memory path) external {
-        require(owner == msg.sender);
+        require(manager == msg.sender);
 
         address asset = BytesLib.toAddress(path, 0);
 
