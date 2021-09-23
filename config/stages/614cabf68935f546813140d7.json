@@ -1,0 +1,22 @@
+{
+  "containerId": "614be5698935f546813140cc",
+  "title": "Exact Input",
+  "abiValidations": "$$LOOKUP",
+  "task": "$$LOOKUP",
+  "details": "$$LOOKUP",
+  "id": "614cabf68935f546813140d7",
+  "type": "CodeStage",
+  "language": "solidity",
+  "languageVersion": "0.7.5",
+  "testFramework": "truffle_with_mocha",
+  "codeFileIds": [
+    "614cabf68935f546813140d8",
+    "614cabf68935f546813140d9",
+    "614cabf68935f546813140db",
+    "614cabf68935f546813140dc"
+  ],
+  "position": 1,
+  "youtubeId": null,
+  "src": null,
+  "forkBlockNumber": 12683564
+}
