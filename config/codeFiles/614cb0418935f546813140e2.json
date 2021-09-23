@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/ISwapRouter.sol",
+  "name": "ISwapRouter.sol",
+  "executable": false,
+  "hasProgress": false,
+  "mode": "sol",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "614be5698935f546813140cc",
+  "codeStageIds": [
+    "614cb0418935f546813140dd"
+  ],
+  "id": "614cb0418935f546813140e2",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}

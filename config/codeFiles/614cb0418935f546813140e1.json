@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/IERC20Minimal.sol",
+  "name": "IERC20Minimal.sol",
+  "executable": false,
+  "hasProgress": false,
+  "mode": "sol",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "614be5698935f546813140cc",
+  "codeStageIds": [
+    "614cb0418935f546813140dd"
+  ],
+  "id": "614cb0418935f546813140e1",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}
