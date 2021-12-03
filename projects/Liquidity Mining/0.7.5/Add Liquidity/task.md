@@ -4,7 +4,7 @@ Now that we have a pool, its time add some liquidity to the pool so that folks c
 
 ### <emoji id="checkered_flag" /> Your Goal: Mint Position
 
-Using the `mint` function on the `INonfungiblePositionManager` create a new liquidity position on the pool. 
+Using the `mint` function on the `INonfungiblePositionManager` to create a new liquidity position on the pool. 
 
 Here are some of the parameters:
 
