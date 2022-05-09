@@ -22,13 +22,13 @@ ISwapRouter.ExactOutputSingleParams memory params =
 amountIn = swapRouter.exactOutputSingle(params);
 ```
 
-<emoji id="point_up" >
+<emoji id="point_up"> You should notice two big changes above. Instead of a specific `amountIn`, we have a specific `amountOut`. _And_ instead of a limited `amountOutMinimum` we have a limited `amountInMaximum`. 
 
-### <emoji id="checkered_flag"> Your Goal: DAI to WETH
+> <emoji id="thinking_face" /> At this point, its useful to ask yourself, "When might this method be preferable?". Try to think of some situations where you might know the exact `amountOut` that you need.
 
-In your contract, there is already a method defined `addDai` which will pull Dai from the `msg.sender`. Now it's time to implement the `daiForWeth` which will take all Dai in the contract and transfer it to wrapped ether. 
+### <emoji id="checkered_flag"> Your Goal: Dai for Weth (again!)
 
-For this challenge, make use of the swap router, dai and weth addresses defined as constants inside of the contract. You can set the `poolFee` to `3000` (which is a `0.3%` fee) and you can set the `amountOutMinimum` and `sqrtPriceLimitX96` to `0` as shown in the example above.
+Same goal as the last stage, let's swap Dai for wrapped ether! Except this time there's a bit of a twist. We'll pass in a `uint` parameter to the `daiForWeth` function which is the exact amount of wrapped ether we want to get from uniswap. 
 
 Before calling the router, be sure to approve it to spend all of the contract's dai with `dai.approve`!
 

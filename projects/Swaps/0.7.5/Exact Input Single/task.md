@@ -22,6 +22,8 @@ ISwapRouter.ExactInputSingleParams memory params =
 amountOut = swapRouter.exactInputSingle(params);
 ```
 
+<emoji id="point_up" /> There's quite a few parameters in this swap! Wondering what they are? Check out the [parameter documentation](?tab=details).
+
 > <emoji id="face_with_monocle" />  Notice that the `amountOutMinimum` and `sqrtPriceLimitX96` price are set to `0` here. In production, you'll want to set these values to protect against price impact and manipulation.
 
 ### <emoji id="checkered_flag"> Your Goal: DAI to WETH
