@@ -36,4 +36,4 @@ Let's execute a multihop trading all the Dai in this contract for UNI tokens. Th
 
 Before calling the router, be sure to approve it to spend all of the contract's dai with `dai.approve`!
 
-> <emoji id="book" /> Need more information? Check out the Uniswap [Multihop Swaps Documentation](https://docs.uniswap.org/protocol/guides/swaps/multihop-swaps)!
+> <emoji id="book" /> Need more information? Check out the Uniswap [Multihop Swaps Documentation](https://docs.uniswap.org/protocol/guides/swaps/multihop-swaps) and the [SwapRouter Documentation](https://docs.uniswap.org/protocol/reference/periphery/interfaces/ISwapRouter)!

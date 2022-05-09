@@ -32,4 +32,4 @@ Same goal as the last stage, let's swap Dai for wrapped ether! Except this time 
 
 Before calling the router, be sure to approve it to spend all of the contract's dai with `dai.approve`!
 
-> <emoji id="book" /> Need more information? Check out the Uniswap [Single Swaps Documentation](https://docs.uniswap.org/protocol/guides/swaps/single-swaps)!
+> <emoji id="book" /> Need more information? Check out the Uniswap [Single Swaps Documentation](https://docs.uniswap.org/protocol/guides/swaps/single-swaps) and the [SwapRouter Documentation](https://docs.uniswap.org/protocol/reference/periphery/interfaces/ISwapRouter)!
