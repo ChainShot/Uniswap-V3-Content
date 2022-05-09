@@ -30,9 +30,9 @@ amountOut = swapRouter.exactInput(params);
 
 <emoji id="point_up" /> Most of these parameters should look quite familiar to you from the previous examples, especially `exactInputSingle`! The big change here is the `path`, which allows us to specify multiple hops in between the two pools. 
 
-### <emoji id="checkered_flag" /> Your Goal: Hop from Dai to WETH <emoji id="rabbit" />
+### <emoji id="checkered_flag" /> Your Goal: Hop from Dai to UNI <emoji id="rabbit" />
 
-Let's execute a multihop trading all the Dai in this contract for wrapped ether. The test cases will provide the `path` as an argument to the `tradeDai` method, for you to use in the `ExactInputParams`.
+Let's execute a multihop trading all the Dai in this contract for UNI tokens. The test cases will provide the `path` as an argument to the `tradeDai` method, for you to use in the `ExactInputParams`. This path will bake in the full path from Dai to Weth to Uni so all you'll need to do is pass it as an argument!
 
 Before calling the router, be sure to approve it to spend all of the contract's dai with `dai.approve`!
 
