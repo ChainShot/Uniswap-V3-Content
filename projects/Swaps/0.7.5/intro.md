@@ -10,5 +10,3 @@ Swaps are the most common interaction with the Uniswap protocol. In this tutoria
 The first two are considered [single swaps](https://docs.uniswap.org/protocol/guides/swaps/single-swaps) and the last two are considered [multihop swaps](https://docs.uniswap.org/protocol/guides/swaps/multihop-swaps). In this tutorial you'll be executing all four of these swaps and taking a look at the situations where you might want to use one over the other. 
 
 Ready to begin coding? Let's jump in!
-
-
