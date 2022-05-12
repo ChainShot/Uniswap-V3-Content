@@ -6,6 +6,6 @@ They will do this by creating their token and then providing liquidity incentive
 
 ### <emoji id="checkered_flag" /> Your Goal: Create a Token
 
-Let's create a token using OpenZeppelin's ERC20 imlpementation. 
+Let's create a token using OpenZeppelin's ERC20 implementation. 
 
 Provide the `name` and `symbol` for your token and then mint the supply to the `msg.sender` by using the internal, inherited `_mint` function.

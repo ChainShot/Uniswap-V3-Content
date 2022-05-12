@@ -4,7 +4,7 @@ Now that we have a pool, its time add some liquidity to the pool so that folks c
 
 ### <emoji id="checkered_flag" /> Your Goal: Mint Position
 
-Using the `mint` function on the `INonfungiblePositionManager` create a new liquidity position on the pool. 
+Using the `mint` function on the `INonfungiblePositionManager` to create a new liquidity position on the pool. 
 
 Here are some of the parameters:
 
@@ -18,4 +18,4 @@ Here are some of the parameters:
 - `amount1Desured`: should correspond with `token1`
 - `amount0Min`: You can set this to `0` since we are the first liquidity provider
 - `amount1Min`: You can set this to `0` since we are the first liquidity provider
-- `deadline`: any future time in seconds, use `Math.floor(Date.now() / 1000)` to get teh current time
+- `deadline`: any future time in seconds, use `Math.floor(Date.now() / 1000)` to get the current time
