@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/Farm.sol",
+  "name": "Farm.sol",
+  "testFixture": false,
+  "stageContainerId": "627c46f22b6eb109f59c3d6e",
+  "codeStageIds": [
+    "627c47e52b6eb109f59c3d6f"
+  ],
+  "id": "627c47e52b6eb109f59c3d71",
+  "initialCode": "$$LOOKUP",
+  "mode": "sol",
+  "visible": true,
+  "executable": true,
+  "hasProgress": true,
+  "fileLocation": null,
+  "readOnly": null
+}
