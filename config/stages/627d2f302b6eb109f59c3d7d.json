@@ -1,0 +1,22 @@
+{
+  "containerId": "627c46f22b6eb109f59c3d6e",
+  "title": "Unstaking",
+  "abiValidations": "$$LOOKUP",
+  "task": "$$LOOKUP",
+  "details": "$$LOOKUP",
+  "id": "627d2f302b6eb109f59c3d7d",
+  "type": "CodeStage",
+  "language": "solidity",
+  "languageVersion": "0.7.5",
+  "testFramework": "truffle_with_mocha",
+  "codeFileIds": [
+    "627c47e52b6eb109f59c3d70",
+    "627c47e52b6eb109f59c3d71",
+    "627d23702b6eb109f59c3d73",
+    "627d2b4d2b6eb109f59c3d75"
+  ],
+  "position": 3,
+  "youtubeId": null,
+  "src": null,
+  "forkBlockNumber": 14757790
+}
