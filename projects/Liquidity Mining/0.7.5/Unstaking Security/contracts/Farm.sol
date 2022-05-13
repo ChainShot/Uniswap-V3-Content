@@ -48,7 +48,7 @@ contract TurtleFarm {
 
         uint reward = liquidity * rewardRate * difference;
 
-        farmToken.mint(msg.sender, reward);
+        turtleToken.mint(msg.sender, reward);
 
         delete deposits[tokenId];
     }

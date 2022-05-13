@@ -31,6 +31,10 @@ contract TurtleFarm {
 
         require(tl == tickLower);
         require(tu == tickUpper);
+
+
+        // TODO: need to figure out the right pool this should be in
+        require(pool == key.pool);
         
         deposits[tokenId] = Deposit(block.timestamp, from);
 		

@@ -10,10 +10,10 @@
   "languageVersion": "0.7.5",
   "testFramework": "truffle_with_mocha",
   "codeFileIds": [
-    "627c47e52b6eb109f59c3d70",
     "627c47e52b6eb109f59c3d71",
     "627d23702b6eb109f59c3d73",
-    "627d2b4d2b6eb109f59c3d75"
+    "627d2b4d2b6eb109f59c3d75",
+    "627d61dbd9fa030a1e257a79"
   ],
   "position": 4,
   "youtubeId": null,
