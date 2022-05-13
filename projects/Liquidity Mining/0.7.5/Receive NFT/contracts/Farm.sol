@@ -12,32 +12,12 @@ contract TurtleFarm {
 	int24 public tickUpper;
 	int24 public tickLower;
 
-    struct Deposit {
-        uint timestamp;
-        address owner;
-        uint128 liquidity;
-    }
-
-    mapping(uint => Deposit) public deposits;
-
 	constructor(int24 _tickLower, int24 _tickUpper) {
 		tickLower = _tickLower;
 		tickUpper = _tickUpper;
 	}
 
     function onERC721Received(address, address from, uint256 tokenId, bytes calldata) external returns (bytes4) {
-        require(msg.sender == address(nonfungiblePositionManager));
-        
-        (, , , , , int24 tl, int24 tu, uint128 liquidity, , , , ) = nonfungiblePositionManager.positions(tokenId);
-
-        require(tl == tickLower);
-        require(tu == tickUpper);
-
-        // TODO: need to figure out the right pool this should be in
-        require(pool == key.pool);
-        
-        deposits[tokenId] = Deposit(block.timestamp, from, liquidity);
-		
         return this.onERC721Received.selector;
     }
 }

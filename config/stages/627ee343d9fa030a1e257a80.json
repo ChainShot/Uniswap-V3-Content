@@ -1,10 +1,10 @@
 {
   "containerId": "627c46f22b6eb109f59c3d6e",
-  "title": "Unstaking Security",
+  "title": "Staking",
   "abiValidations": "$$LOOKUP",
   "task": "$$LOOKUP",
   "details": "$$LOOKUP",
-  "id": "627d2f512b6eb109f59c3d7f",
+  "id": "627ee343d9fa030a1e257a80",
   "type": "CodeStage",
   "language": "solidity",
   "languageVersion": "0.7.5",
@@ -13,9 +13,9 @@
     "627c47e52b6eb109f59c3d71",
     "627d23702b6eb109f59c3d73",
     "627d2b4d2b6eb109f59c3d75",
-    "627d61dbd9fa030a1e257a79"
+    "627ee34fd9fa030a1e257a82"
   ],
-  "position": 5,
+  "position": 2,
   "youtubeId": null,
   "src": null,
   "forkBlockNumber": 14757790

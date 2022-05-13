@@ -15,9 +15,10 @@ contract TurtleFarm {
     struct Deposit {
         uint timestamp;
         address owner;
+        uint128 liquidity;
     }
 
-    mapping(uint => Deposit) deposits;
+    mapping(uint => Deposit) public deposits;
 
 	constructor(int24 _tickLower, int24 _tickUpper) {
 		tickLower = _tickLower;
@@ -27,12 +28,12 @@ contract TurtleFarm {
     function onERC721Received(address, address from, uint256 tokenId, bytes calldata) external returns (bytes4) {
         require(msg.sender == address(nonfungiblePositionManager));
 
-        (, , , , , int24 tl, int24 tu, , , , , ) = nonfungiblePositionManager.positions(tokenId);
+        (, , , , , int24 tl, int24 tu, uint128 liquidity, , , , ) = nonfungiblePositionManager.positions(tokenId);
 
         require(tl == tickLower);
         require(tu == tickUpper);
         
-        deposits[tokenId] = Deposit(block.timestamp, from);
+        deposits[tokenId] = Deposit(block.timestamp, from, liquidity);
 		
         return this.onERC721Received.selector;
     }
@@ -42,11 +43,9 @@ contract TurtleFarm {
 
         require(deposit.owner == msg.sender);
 
-        (, , , , , , , uint128 liquidity, , , , ) = nonfungiblePositionManager.positions(tokenId);
-
         uint difference = block.timestamp - deposit.timestamp;
 
-        uint reward = liquidity * rewardRate * difference;
+        uint reward = deposit.liquidity * rewardRate * difference;
 
         turtleToken.mint(msg.sender, reward);
 
