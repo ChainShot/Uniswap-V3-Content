@@ -1,0 +1,17 @@
+{
+  "executablePath": "contracts/Turtle.sol",
+  "name": "Turtle.sol",
+  "executable": true,
+  "hasProgress": false,
+  "mode": "sol",
+  "readOnly": true,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "627c46f22b6eb109f59c3d6e",
+  "codeStageIds": [
+    "627d2ece2b6eb109f59c3d79"
+  ],
+  "id": "627d8bfad9fa030a1e257a7e",
+  "initialCode": "$$LOOKUP",
+  "fileLocation": null
+}
