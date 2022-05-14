@@ -1,12 +1,8 @@
 const { assert } = require("chai");
 const { utils: { parseEther, keccak256, hexZeroPad } } = ethers;
-const bn = require("ganache-core/node_modules/bignumber.js");
 const { abi: factoryAbi } = require("@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json");
 const { abi: nftAbi } = require('@uniswap/v3-periphery/artifacts/contracts/interfaces/INonfungiblePositionManager.sol/INonfungiblePositionManager.json');
-bn.config({ EXPONENTIAL_AT: 999999, DECIMAL_PLACES: 40 });
-
-const getMinTick = (tickSpacing) => Math.ceil(-887272 / tickSpacing) * tickSpacing;
-const getMaxTick = (tickSpacing) => Math.floor(887272 / tickSpacing) * tickSpacing;
+const { getMinTick, getMaxTick, encodePriceSqrt } = require('./utils');
 
 const nonFungiblePositionManagerAddress = "0xC36442b4a4522E871399CD717aBDD847Ab11FE88";
 const uniswapFactoryAddr = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
@@ -14,7 +10,7 @@ const WETH_ADDR = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 
 describe('TurtleFarm', function () {
     const ticks = [5, 10];
-    let farm, turtle, poolInitializer, nftManager;
+    let farm, turtle, nftManager;
     let acc0;
     let tokenId;
     before(async () => {
@@ -28,7 +24,7 @@ describe('TurtleFarm', function () {
         turtle = await Turtle.deploy(parseEther("1000"));
         await turtle.deployed();
 
-        poolInitializer = await ethers.getContractAt("IPoolInitializer", nonFungiblePositionManagerAddress);
+        const poolInitializer = await ethers.getContractAt("IPoolInitializer", nonFungiblePositionManagerAddress);
 
         await poolInitializer.createAndInitializePoolIfNecessary(
             turtle.address,
@@ -85,14 +81,3 @@ describe('TurtleFarm', function () {
         assert(await nftManager.ownerOf(tokenId));
     });
 });
-
-function encodePriceSqrt(reserve1, reserve0) {
-    return ethers.BigNumber.from(
-        new bn(reserve1.toString())
-            .div(reserve0.toString())
-            .sqrt()
-            .multipliedBy(new bn(2).pow(96))
-            .integerValue(3)
-            .toString()
-    )
-}

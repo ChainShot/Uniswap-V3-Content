@@ -1,18 +1,18 @@
 {
-  "executablePath": "contracts/PoolInitializer.sol",
-  "name": "PoolInitializer.sol",
+  "executablePath": "test/utils.js",
+  "name": "utils.js",
   "executable": true,
   "hasProgress": false,
-  "mode": "sol",
+  "mode": "javascript",
   "readOnly": true,
-  "testFixture": false,
-  "visible": true,
+  "testFixture": true,
+  "visible": false,
   "stageContainerId": "627c46f22b6eb109f59c3d6e",
   "codeStageIds": [
     "627d2ece2b6eb109f59c3d79",
     "627ee343d9fa030a1e257a80"
   ],
-  "id": "627d8a56d9fa030a1e257a7c",
+  "id": "627fdd5ad9fa030a1e257a83",
   "initialCode": "$$LOOKUP",
   "fileLocation": null
 }
