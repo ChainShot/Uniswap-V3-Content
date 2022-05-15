@@ -32,16 +32,16 @@ async function createPool(poolInitializerAddr, token0Addr, token1Addr, fee, amou
     // const { pool } = factoryEvents[0].args;
 }
 
-async function mintLiquidity(token0, token1, amount0, amount1, nftManager, recipient) {
+async function mintLiquidity(token0, token1, amount0, amount1, nftManager, recipient, fee = 3000, tickLower = getMinTick(60), tickUpper = getMaxTick(60)) {
     await token0.approve(nftManager.address, amount0);
     await token1.approve(nftManager.address, amount1);
 
     const tx2 = await nftManager.mint({
         token0: token0.address,
         token1: token1.address,
-        fee: 3000,
-        tickLower: getMinTick(60),
-        tickUpper: getMaxTick(60),
+        fee,
+        tickLower,
+        tickUpper,
         recipient,
         amount0Desired: amount0,
         amount1Desired: amount1,

@@ -1,4 +1,4 @@
-const { assert } = require("chai");
+const { assert, expect } = require("chai");
 const { utils: { parseEther, keccak256, hexZeroPad } } = ethers;
 const { abi: factoryAbi } = require("@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json");
 const { abi: nftAbi } = require('@uniswap/v3-periphery/artifacts/contracts/interfaces/INonfungiblePositionManager.sol/INonfungiblePositionManager.json');
@@ -11,11 +11,13 @@ const WETH_ADDR = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 describe('TurtleFarm', function () {
     const ticks = [getMinTick(60), getMaxTick(60)];
     const amounts = [parseEther("100"), parseEther("100")];
-    let farm, turtle, nftManager;
-    let acc0;
+    let farm, turtle, weth, nftManager;
+    let acc0, acc1;
+    let signer1;
     let tokenId;
     before(async () => {
-        [acc0] = await ethers.provider.listAccounts();
+        [, signer1] = await ethers.getSigners();
+        [acc0, acc1] = await ethers.provider.listAccounts();
 
         const TurtleFarm = await ethers.getContractFactory("TurtleFarm");
         farm = await TurtleFarm.deploy(...ticks);
@@ -28,7 +30,7 @@ describe('TurtleFarm', function () {
         await createPool(nonFungiblePositionManagerAddress, turtle.address, WETH_ADDR, 3000, amounts[0], amounts[1]);
 
         nftManager = await ethers.getContractAt(nftAbi, nonFungiblePositionManagerAddress);
-        const weth = await ethers.getContractAt("Turtle", WETH_ADDR);
+        weth = await ethers.getContractAt("Turtle", WETH_ADDR);
 
         await network.provider.send("hardhat_setStorageAt", [
             WETH_ADDR,
@@ -61,17 +63,47 @@ describe('TurtleFarm', function () {
 
     describe("security concerns", () => {
         describe("a transfer from a non position manager", () => {
+            let newTokenId;
             before(async () => {
+                await turtle.transfer(acc1, parseEther("1"));
+                await weth.transfer(acc1, parseEther("1"));
+                newTokenId = await mintLiquidity(turtle.connect(signer1), weth.connect(signer1), parseEther("1"), parseEther("1"), nftManager.connect(signer1), acc1);
+            });
 
+            it("should revert", async () => {
+                const transfer = farm.onERC721Received(acc0, acc0, newTokenId, "");
+                await expect(transfer).to.be.reverted;
             });
         });
 
         describe("an nft with the wrong ticks", () => {
+            let newTokenId;
+            before(async () => {
+                newTokenId = await mintLiquidity(turtle, weth, parseEther("1"), parseEther("1"), nftManager, acc0, 3000, getMinTick(60) + 60, getMaxTick(60) - 60);
+            });
 
+            it("should revert", async () => {
+                const transfer = nftManager['safeTransferFrom(address,address,uint256)'](acc0, farm.address, newTokenId);
+                await expect(transfer).to.be.reverted;
+            });
         });
 
         describe("an nft in the wrong pool", () => {
+            let newTokenId;
+            before(async () => {
+                const Turtle = await ethers.getContractFactory("Turtle");
+                const fakeTurtle = await Turtle.deploy(parseEther("1000"));
+                await fakeTurtle.deployed();
 
+                await createPool(nonFungiblePositionManagerAddress, fakeTurtle.address, WETH_ADDR, 3000, amounts[0], amounts[1]);
+
+                newTokenId = await mintLiquidity(fakeTurtle, weth, parseEther("1"), parseEther("1"), nftManager, acc0);
+            });
+
+            it("should revert", async () => {
+                const transfer = nftManager['safeTransferFrom(address,address,uint256)'](acc0, farm.address, newTokenId);
+                await expect(transfer).to.be.reverted;
+            });
         });
     });
 });
