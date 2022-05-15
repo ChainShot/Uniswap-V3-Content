@@ -15,8 +15,51 @@ function encodePriceSqrt(reserve1, reserve0) {
     )
 }
 
+
+async function createPool(poolInitializerAddr, token0Addr, token1Addr, fee, amount0, amount1) {
+    const poolInitializer = await ethers.getContractAt("IPoolInitializer", poolInitializerAddr);
+
+    await poolInitializer.createAndInitializePoolIfNecessary(
+        token0Addr,
+        token1Addr,
+        fee,
+        encodePriceSqrt(amount0, amount1)
+    );
+
+    // const receipt = await tx.wait();
+    // const factoryInterface = new ethers.utils.Interface(factoryAbi);
+    // const factoryEvents = receipt.logs.filter(x => x.address === uniswapFactoryAddr).map(x => factoryInterface.parseLog(x));
+    // const { pool } = factoryEvents[0].args;
+}
+
+async function mintLiquidity(token0, token1, amount0, amount1, nftManager, recipient) {
+    await token0.approve(nftManager.address, amount0);
+    await token1.approve(nftManager.address, amount1);
+
+    const tx2 = await nftManager.mint({
+        token0: token0.address,
+        token1: token1.address,
+        fee: 3000,
+        tickLower: getMinTick(60),
+        tickUpper: getMaxTick(60),
+        recipient,
+        amount0Desired: amount0,
+        amount1Desired: amount1,
+        amount0Min: 0,
+        amount1Min: 0,
+        deadline: Math.floor(Date.now() / 1000) + 60
+    });
+
+    const receipt2 = await tx2.wait();
+    const increaseLiquidityEvent = receipt2.events.find(x => x.event === "IncreaseLiquidity");
+    const tokenId = increaseLiquidityEvent.args.tokenId;
+    return tokenId;
+}
+
 module.exports = {
     getMaxTick,
     getMinTick,
-    encodePriceSqrt
+    encodePriceSqrt,
+    createPool,
+    mintLiquidity
 }
