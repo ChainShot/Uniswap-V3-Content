@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.5;
 
+import "@uniswap/v3-periphery/contracts/libraries/PoolAddress.sol";
 import "./INonfungiblePositionManager.sol";
 import "./IERC20.sol";
 
@@ -27,12 +28,18 @@ contract TurtleFarm {
 
     function onERC721Received(address, address from, uint256 tokenId, bytes calldata) external returns (bytes4) {
         require(msg.sender == address(nonfungiblePositionManager));
-
-        (, , , , , int24 tl, int24 tu, uint128 liquidity, , , , ) = nonfungiblePositionManager.positions(tokenId);
+        
+        (, , address token0, address token1, uint24 fee, int24 tl, int24 tu, uint128 liquidity, , , , ) = nonfungiblePositionManager.positions(tokenId);
 
         require(tl == tickLower);
         require(tu == tickUpper);
-        
+
+        address pool = PoolAddress.computeAddress(
+            0x1F98431c8aD98523631AE4a59f267346ea31F984,
+            PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee})
+        );
+        require(pool == 0x3a0DdD0F3ff19Db49cAC556976264783bdA98969);
+
         deposits[tokenId] = Deposit(block.timestamp, from, liquidity);
 		
         return this.onERC721Received.selector;

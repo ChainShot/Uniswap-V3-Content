@@ -6,8 +6,6 @@ import "./INonfungiblePositionManager.sol";
 import "./IERC20.sol";
 
 contract TurtleFarm {    
-    address constant uniswapFactory = 0x1F98431c8aD98523631AE4a59f267346ea31F984;
-    address constant uniswapPool = 0x3a0DdD0F3ff19Db49cAC556976264783bdA98969;
 	INonfungiblePositionManager constant nonfungiblePositionManager = INonfungiblePositionManager(0xC36442b4a4522E871399CD717aBDD847Ab11FE88);
     IERC20 constant turtleToken = IERC20(0xC36442b4a4522E871399CD717aBDD847Ab11FE88);
     uint constant rewardRate = 150;
@@ -37,10 +35,10 @@ contract TurtleFarm {
         require(tu == tickUpper);
 
         address pool = PoolAddress.computeAddress(
-            uniswapFactory,
+            0x1F98431c8aD98523631AE4a59f267346ea31F984,
             PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee})
         );
-        require(pool == uniswapPool);
+        require(pool == 0x3a0DdD0F3ff19Db49cAC556976264783bdA98969);
 
         deposits[tokenId] = Deposit(block.timestamp, from, liquidity);
 		
