@@ -1,11 +1,9 @@
 const { assert, expect } = require("chai");
 const { utils: { parseEther, keccak256, hexZeroPad } } = ethers;
-const { abi: factoryAbi } = require("@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json");
 const { abi: nftAbi } = require('@uniswap/v3-periphery/artifacts/contracts/interfaces/INonfungiblePositionManager.sol/INonfungiblePositionManager.json');
 const { getMinTick, getMaxTick, encodePriceSqrt, mintLiquidity, createPool } = require('./utils');
 
 const nonFungiblePositionManagerAddress = "0xC36442b4a4522E871399CD717aBDD847Ab11FE88";
-const uniswapFactoryAddr = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
 const WETH_ADDR = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 
 describe('TurtleFarm', function () {

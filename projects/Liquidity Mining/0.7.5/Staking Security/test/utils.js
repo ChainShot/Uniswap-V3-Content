@@ -1,6 +1,8 @@
+const { abi: factoryAbi } = require("@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json");
 const bn = require("ganache-core/node_modules/bignumber.js");
 bn.config({ EXPONENTIAL_AT: 999999, DECIMAL_PLACES: 40 });
 
+const uniswapFactoryAddr = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
 const getMinTick = (tickSpacing) => Math.ceil(-887272 / tickSpacing) * tickSpacing;
 const getMaxTick = (tickSpacing) => Math.floor(887272 / tickSpacing) * tickSpacing;
 

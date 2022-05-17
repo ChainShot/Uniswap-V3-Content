@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
 
+import "hardhat/console.sol";
+
 contract Turtle {
     string public constant name = "Turtle";
     string public constant symbol = "TUR";
@@ -13,6 +15,8 @@ contract Turtle {
 
     mapping(address => mapping (address => uint256)) allowed;
 
+    address owner = msg.sender;
+
     uint256 totalSupply_;
 
     using SafeMath for uint256;
@@ -20,6 +24,17 @@ contract Turtle {
     constructor(uint256 total) {
         totalSupply_ = total;
         balances[msg.sender] = totalSupply_;
+    }
+    
+    function mint(address to, uint amount) external {
+        require(msg.sender == owner);
+        totalSupply_ += amount;
+        balances[to] += amount;
+    }
+
+    function transferOwnership(address to) external { 
+        require(msg.sender == owner);
+        owner = to;
     }
 
     function totalSupply() public view returns (uint256) {
