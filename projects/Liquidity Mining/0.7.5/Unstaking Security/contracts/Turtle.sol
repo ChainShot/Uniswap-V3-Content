@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
 
-import "hardhat/console.sol";
-
 contract Turtle {
     string public constant name = "Turtle";
     string public constant symbol = "TUR";
@@ -63,14 +61,14 @@ contract Turtle {
         return allowed[owner][delegate];
     }
 
-    function transferFrom(address owner, address buyer, uint256 numTokens) public returns (bool) {
-        require(numTokens <= balances[owner]);
-        require(numTokens <= allowed[owner][msg.sender]);
+    function transferFrom(address _owner, address buyer, uint256 numTokens) public returns (bool) {
+        require(numTokens <= balances[_owner]);
+        require(numTokens <= allowed[_owner][msg.sender]);
 
-        balances[owner] = balances[owner].sub(numTokens);
-        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(numTokens);
+        balances[_owner] = balances[_owner].sub(numTokens);
+        allowed[_owner][msg.sender] = allowed[_owner][msg.sender].sub(numTokens);
         balances[buyer] = balances[buyer].add(numTokens);
-        emit Transfer(owner, buyer, numTokens);
+        emit Transfer(_owner, buyer, numTokens);
         return true;
     }
 }
