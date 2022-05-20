@@ -11,7 +11,5 @@ contract LimitOrder {
 	IUniswapV3Pool constant pool = IUniswapV3Pool(0xC2e9F25Be6257c210d7Adf0D4Cd6E3E881ba25f8);
 	ISwapRouter constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
-	function setLimitOrder(uint amount, uint expiration, uint ethPrice) external {
-		dai.transferFrom(msg.sender, address(this), amount);
-	}
+
 }
