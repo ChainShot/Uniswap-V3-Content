@@ -12,4 +12,7 @@ contract LimitOrder {
 	ISwapRouter constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
 
+	function setLimitOrder(uint amount, uint expiration, uint ethPrice) external {
+		dai.transferFrom(msg.sender, address(this), amount);
+	}
 }

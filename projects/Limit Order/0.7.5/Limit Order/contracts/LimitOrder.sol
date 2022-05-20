@@ -19,11 +19,7 @@ contract LimitOrder {
 	
 	uint orderIdCount;
 	mapping(uint => Order) orders;
-
-	function depositDai(uint amount) external {
-		dai.transferFrom(msg.sender, address(this), amount);
-	}
-
+	
 	event NewOrder(uint id);
 
 	function setLimitOrder(uint amount, uint expiration, uint ethPrice) external {

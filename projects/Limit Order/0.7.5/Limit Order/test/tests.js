@@ -37,7 +37,7 @@ describe('LimitOrder', function () {
         const tx = await contract.setLimitOrder(daiDeposit, Date.now(), 74000);
         const receipt = await tx.wait();
         const event = receipt.events.find(x => x.event === "NewOrder");
-        if(!event) {
+        if (!event) {
             throw new Error("No 'NewOrder' event emitted!");
         }
         orderId = event.args.id;
@@ -65,11 +65,11 @@ describe('LimitOrder', function () {
                 deadline: Math.ceil(Date.now() / 1000),
                 amountIn: wethBalance,
                 amountOutMinimum: 0,
-                sqrtPriceLimitX96: 0 
+                sqrtPriceLimitX96: 0
             });
 
-            await hre.network.provider.send("evm_increaseTime", [10]); 
-            await hre.network.provider.send("evm_mine"); 
+            await hre.network.provider.send("evm_increaseTime", [10]);
+            await hre.network.provider.send("evm_mine");
         });
 
         it("should allow execution of the order", async () => {
