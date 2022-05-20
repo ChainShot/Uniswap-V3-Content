@@ -5,14 +5,11 @@ pragma abicoder v2;
 import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import "hardhat/console.sol";
 
 contract LimitOrder {
 	IERC20Minimal constant dai = IERC20Minimal(0x6B175474E89094C44Da98b954EedeAC495271d0F);
 	IUniswapV3Pool constant pool = IUniswapV3Pool(0xC2e9F25Be6257c210d7Adf0D4Cd6E3E881ba25f8);
 	ISwapRouter constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
-
-	address owner = msg.sender;
 
 	struct Order {
 		uint amount;
@@ -30,8 +27,6 @@ contract LimitOrder {
 	event NewOrder(uint id);
 
 	function setLimitOrder(uint amount, uint expiration, uint ethPrice) external {
-		require(msg.sender == owner);
-		
 		dai.transferFrom(msg.sender, address(this), amount);
 		orderIdCount++;
 		orders[orderIdCount] = Order(amount, expiration, ethPrice);
@@ -49,8 +44,6 @@ contract LimitOrder {
 	}
 
 	function executeOrder(uint orderId) external {
-		require(owner == msg.sender);
-
 		Order memory order = orders[orderId];
 
 		require(block.timestamp < order.expiration);
