@@ -1,4 +1,4 @@
-const { assert, expect } = require("chai");
+const { assert } = require("chai");
 const { utils: { keccak256, hexZeroPad, parseEther, formatEther }, BigNumber } = ethers;
 const { abi: routerAbi } = require('@uniswap/v3-periphery/artifacts/contracts/interfaces/ISwapRouter.sol/ISwapRouter.json');
 
@@ -46,10 +46,6 @@ describe('LimitOrder', function () {
     it("should have dai deposited", async () => {
         const balance = await dai.balanceOf(contract.address);
         assert.equal(balance.toString(), daiDeposit.toString());
-    });
-
-    it("should not allow the order to be executed", async () => {
-        await expect(contract.executeOrder(orderId)).to.be.reverted;
     });
 
     describe("after moving the price significantly", () => {

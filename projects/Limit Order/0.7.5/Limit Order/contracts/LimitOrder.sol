@@ -42,9 +42,6 @@ contract LimitOrder {
 	function executeOrder(uint orderId) external {
 		Order memory order = orders[orderId];
 
-		require(block.timestamp < order.expiration);
-		require(calculatePrice() < order.ethPrice); 
-
 		dai.approve(address(router), order.amount);
 
 		ISwapRouter.ExactInputSingleParams memory params =
