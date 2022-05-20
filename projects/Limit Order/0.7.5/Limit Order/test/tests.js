@@ -37,6 +37,9 @@ describe('LimitOrder', function () {
         const tx = await contract.setLimitOrder(daiDeposit, Date.now(), 74000);
         const receipt = await tx.wait();
         const event = receipt.events.find(x => x.event === "NewOrder");
+        if(!event) {
+            throw new Error("No 'NewOrder' event emitted!");
+        }
         orderId = event.args.id;
     });
 
