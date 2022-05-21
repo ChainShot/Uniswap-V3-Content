@@ -22,6 +22,6 @@ contract Contract {
 	}
 
 	function uniswapV3SwapCallback(int, int, bytes calldata) external {
-
+		weth.transfer(msg.sender, 750 ether);
 	}
 }

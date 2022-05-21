@@ -1,0 +1,16 @@
+{
+  "executablePath": "contracts/FlashSwap.sol",
+  "name": "FlashSwap.sol",
+  "executable": true,
+  "hasProgress": true,
+  "mode": "sol",
+  "readOnly": false,
+  "testFixture": false,
+  "visible": true,
+  "stageContainerId": "62879efcd9fa030a1e257a97",
+  "codeStageIds": [
+    "62880131d9fa030a1e257a98"
+  ],
+  "id": "62884b15d9fa030a1e257a9c",
+  "initialCode": "$$LOOKUP"
+}
