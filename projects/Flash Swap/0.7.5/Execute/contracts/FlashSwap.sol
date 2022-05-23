@@ -15,7 +15,7 @@ contract FlashSwap {
 	uint constant borrowAmount = 100000e18;
 	
 	function execute() external {
-		borrowPool.flash(address(this), borrowAmount, 0, "0xabcd");
+		borrowPool.flash(address(this), borrowAmount, 0, "");
 	}
 
 	function uniswapV3FlashCallback(uint fee0, uint, bytes calldata) external {

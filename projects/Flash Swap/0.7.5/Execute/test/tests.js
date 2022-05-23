@@ -4,7 +4,7 @@ const { utils: { keccak256, hexZeroPad, parseEther, formatEther } } = ethers;
 const WETH_ADDR = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 const LOW_FEE_POOL = "0x60594a405d53811d3bc4766596efd80fd545a270"; 
 
-describe('LimitOrder', function () {
+describe('FlashSwap', function () {
     const wethBalance = parseEther("750");
     let weth, contract, flashSwap;
     let addr0;
@@ -35,8 +35,10 @@ describe('LimitOrder', function () {
     it("should profit significantly in wrapped ether", async () => {
         await flashSwap.execute();
 
-        const balance = await weth.balanceOf(flashSwap.address);
+        const balance = formatEther(await weth.balanceOf(flashSwap.address));
 
-        assert.isAbove(parseInt(formatEther(balance)), 100);
+        console.log("Total profit in WETH:", balance);
+
+        assert.isAbove(Math.ceil(balance), 100);
     });
 });

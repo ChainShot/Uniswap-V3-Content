@@ -9,9 +9,9 @@
   "id": "62880131d9fa030a1e257a9a",
   "initialCode": "$$LOOKUP",
   "mode": "sol",
-  "visible": true,
+  "visible": false,
   "executable": true,
-  "hasProgress": true,
+  "hasProgress": false,
   "fileLocation": null,
-  "readOnly": null
+  "readOnly": true
 }
