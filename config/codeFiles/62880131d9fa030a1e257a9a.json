@@ -1,6 +1,6 @@
 {
-  "executablePath": "contracts/contract.sol",
-  "name": "contract.sol",
+  "executablePath": "contracts/Contract.sol",
+  "name": "Contract.sol",
   "testFixture": false,
   "stageContainerId": "62879efcd9fa030a1e257a97",
   "codeStageIds": [
@@ -11,5 +11,7 @@
   "mode": "sol",
   "visible": true,
   "executable": true,
-  "hasProgress": true
+  "hasProgress": true,
+  "fileLocation": null,
+  "readOnly": null
 }

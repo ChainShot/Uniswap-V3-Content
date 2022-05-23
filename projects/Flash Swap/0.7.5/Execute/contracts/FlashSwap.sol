@@ -1,22 +1,53 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.5;
+pragma abicoder v2;
 
 import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 import "@uniswap/v3-core/contracts/libraries/TickMath.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 
 import "hardhat/console.sol";
 
 contract FlashSwap {
-	IERC20Minimal weth = IERC20Minimal(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
-	IUniswapV3Pool ethDai500 = IUniswapV3Pool(0x60594a405d53811d3BC4766596EFD80fd545A270);
-	IUniswapV3Pool ethDai3000 = IUniswapV3Pool(0xC2e9F25Be6257c210d7Adf0D4Cd6E3E881ba25f8);
-
+	IUniswapV3Pool constant borrowPool = IUniswapV3Pool(0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168);
+    ISwapRouter constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+	IERC20Minimal constant weth = IERC20Minimal(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+	IERC20Minimal constant dai = IERC20Minimal(0x6B175474E89094C44Da98b954EedeAC495271d0F);
+	
 	function execute() external {
-		ethDai3000.flash(address(this), 100000e18, 0, "0xabcd");
+		borrowPool.flash(address(this), 100000e18, 0, "0xabcd");
 	}
 
 	function uniswapV3FlashCallback(uint, uint, bytes calldata) external {
-		console.log("callback!");
+		dai.approve(address(router), 100000e18);
+        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams(
+            address(dai),
+            address(weth),
+			500,
+			address(this),
+			block.timestamp,
+            100000e18,
+            0,
+			0
+        );
+        router.exactInputSingle(params);
+
+		weth.approve(address(router), weth.balanceOf(address(this)));
+        ISwapRouter.ExactOutputSingleParams memory outputParams = ISwapRouter.ExactOutputSingleParams(
+            address(weth),
+            address(dai),
+			3000,
+			address(this),
+			block.timestamp,
+            100400e18,
+            weth.balanceOf(address(this)),
+			0
+        );
+        router.exactOutputSingle(outputParams);
+
+		dai.transfer(msg.sender, 100400e18);
+
+		console.log(weth.balanceOf(address(this)) / 1 ether);
 	}
 }
