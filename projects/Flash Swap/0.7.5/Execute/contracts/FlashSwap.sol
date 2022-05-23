@@ -6,6 +6,8 @@ import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 
+import "hardhat/console.sol";
+
 contract FlashSwap {
 	IUniswapV3Pool constant borrowPool = IUniswapV3Pool(0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168);
     ISwapRouter constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
@@ -18,35 +20,9 @@ contract FlashSwap {
 		borrowPool.flash(address(this), borrowAmount, 0, "");
 	}
 
-	function uniswapV3FlashCallback(uint fee0, uint, bytes calldata) external {
-		dai.approve(address(router), borrowAmount);
-        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams(
-            address(dai),
-            address(weth),
-			500,
-			address(this),
-			block.timestamp,
-            borrowAmount,
-            0,
-			0
-        );
-        router.exactInputSingle(params);
-
-		uint repayAmount = borrowAmount + fee0;
-
-		weth.approve(address(router), weth.balanceOf(address(this)));
-        ISwapRouter.ExactOutputSingleParams memory outputParams = ISwapRouter.ExactOutputSingleParams(
-            address(weth),
-            address(dai),
-			3000,
-			address(this),
-			block.timestamp,
-            repayAmount,
-            weth.balanceOf(address(this)),
-			0
-        );
-        router.exactOutputSingle(outputParams);
-
-		dai.transfer(msg.sender, repayAmount);
+	function uniswapV3FlashCallback(uint, uint, bytes calldata) external {
+		console.log("inside the flash swap callback!");
+		// should have borrowed the 100k dai
+		console.log(dai.balanceOf(address(this)));
 	}
 }
